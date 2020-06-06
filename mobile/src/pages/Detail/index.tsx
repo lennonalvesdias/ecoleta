@@ -20,7 +20,7 @@ interface Params {
 }
 
 interface Data {
-  point: {
+  serializedPoint: {
     image: string;
     image_url: string;
     name: string;
@@ -55,17 +55,17 @@ const Detail = () => {
   function handleComposeMail() {
     MailComposer.composeAsync({
       subject: "Interesse na coleta de resíduos",
-      recipients: [data.point.email],
+      recipients: [data.serializedPoint.email],
     });
   }
 
   function handleWhatsApp() {
     Linking.openURL(
-      `whatsapp://send?phone=55${data.point.whatsapp}&text=Tenho interesse sobre coleta de resíduos.`
+      `whatsapp://send?phone=55${data.serializedPoint.whatsapp}&text=Tenho interesse sobre coleta de resíduos.`
     );
   }
 
-  if (!data.point) {
+  if (!data.serializedPoint) {
     return null;
   }
 
@@ -79,11 +79,11 @@ const Detail = () => {
         <Image
           style={styles.pointImage}
           source={{
-            uri: data.point.image_url,
+            uri: data.serializedPoint.image_url,
           }}
         />
 
-        <Text style={styles.pointName}>{data.point.name}</Text>
+        <Text style={styles.pointName}>{data.serializedPoint.name}</Text>
         <Text style={styles.pointItems}>
           {data.items.map((item) => item.title).join(", ")}
         </Text>
@@ -91,7 +91,7 @@ const Detail = () => {
         <View style={styles.address}>
           <Text style={styles.addressTitle}>Endereço:</Text>
           <Text style={styles.addressContent}>
-            {data.point.city}, {data.point.uf}
+            {data.serializedPoint.city}, {data.serializedPoint.uf}
           </Text>
         </View>
       </View>
